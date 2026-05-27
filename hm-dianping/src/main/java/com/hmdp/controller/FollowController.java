@@ -1,9 +1,10 @@
 package com.hmdp.controller;
 
+import com.hmdp.dto.Result;
+import com.hmdp.service.IFollowService;
+import org.springframework.web.bind.annotation.*;
 
-import org.springframework.web.bind.annotation.RequestMapping;
-
-import org.springframework.web.bind.annotation.RestController;
+import javax.annotation.Resource;
 
 /**
  * <p>
@@ -17,4 +18,16 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/follow")
 public class FollowController {
 
+    @Resource
+    private IFollowService followService;
+
+    @PutMapping("/{followUserId}/{isFollow}")
+    public Result follow(@PathVariable Long followUserId, @PathVariable Boolean isFollow) {
+        return followService.follow(followUserId, isFollow);
+    }
+
+    @GetMapping("/or/not/{followUserId}")
+    public Result isFollow(@PathVariable Long followUserId) {
+        return followService.isFollow(followUserId);
+    }
 }
